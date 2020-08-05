@@ -29,7 +29,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public  class MainActivity extends AppCompatActivity implements Main2Activity.JoystickListener  {
@@ -52,21 +53,21 @@ public  class MainActivity extends AppCompatActivity implements Main2Activity.Jo
         ipaddress = (EditText) findViewById(R.id.editText2);
         ipadd = ipaddress.getText().toString();
         ipnew=InetAddress.getByName(ipadd);
-        if (ipadd.length() >= 13) {
+        String zeroTo255 = "(\\d{1,2}|(0|1)\\" + "d{2}|2[0-4]\\d|25[0-5])";
+        String pattern = zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255;
+        Pattern r = Pattern.compile(pattern);
 
-             //ipnew = InetAddress.getByName(ipadd);
+        Matcher m= r.matcher(ipadd);
+
+        if(m.find()){
             setContentView(R.layout.activity_main2);
-
-            //Main2Activity joystick= new Main2Activity(this);
-            //setContentView(joystick);
-
-
-        } else {
-            String warning = "Enter valid IP Address";
-            Toast.makeText(this, warning, Toast.LENGTH_LONG).show();
-
-
         }
+
+        else{
+            String alert="Please enter valid IP";
+            Toast.makeText(this,alert,Toast.LENGTH_LONG).show();
+        }
+
 
 
 
@@ -108,6 +109,8 @@ public  class MainActivity extends AppCompatActivity implements Main2Activity.Jo
 
     public void editIP(View view){
         setContentView(R.layout.activity_main3);
+        EditText edit = findViewById(R.id.editText2);
+        edit.setText(ipadd);
     }
 
 
