@@ -54,6 +54,7 @@ public  class MainActivity extends AppCompatActivity implements Main2Activity.Jo
         ipadd = ipaddress.getText().toString();
         ipnew=InetAddress.getByName(ipadd);
         String zeroTo255 = "(\\d{1,2}|(0|1)\\" + "d{2}|2[0-4]\\d|25[0-5])";
+
         String pattern = zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255;
         Pattern r = Pattern.compile(pattern);
 
@@ -64,7 +65,7 @@ public  class MainActivity extends AppCompatActivity implements Main2Activity.Jo
         }
 
         else{
-            String alert="Please enter valid IP";
+            String alert="Please enter valid IP address";
             Toast.makeText(this,alert,Toast.LENGTH_LONG).show();
         }
 
